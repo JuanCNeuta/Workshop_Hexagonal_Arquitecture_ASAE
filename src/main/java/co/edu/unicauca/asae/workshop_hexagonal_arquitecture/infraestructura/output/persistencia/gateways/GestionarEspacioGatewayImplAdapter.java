@@ -21,6 +21,18 @@ public class GestionarEspacioGatewayImplAdapter implements GestionarEspacioGatew
         this.objEspacioRepository = objEspacioRepository;
         this.espacioModelMapper = espacioModelMapper;
     }
+    @Override
+    public boolean existeEspacioPorNombre(String nombre) {
+        return this.objEspacioRepository.existeEspacioPorNombre(nombre) == 1;
+    }
+
+    @Override
+    public EspacioFisico guardar(EspacioFisico objEspacio) {
+        EspacioFisicoEntity objEspacioEntity = this.espacioModelMapper.map(objEspacio, EspacioFisicoEntity.class);
+        EspacioFisicoEntity objEspacioEntityRegistrado = this.objEspacioRepository.save(objEspacioEntity);
+        EspacioFisico objEspacioRespuesta = this.espacioModelMapper.map(objEspacioEntityRegistrado, EspacioFisico.class);
+        return objEspacioRespuesta;
+    }
 
     @Override
     public List<EspacioFisico> listar() {

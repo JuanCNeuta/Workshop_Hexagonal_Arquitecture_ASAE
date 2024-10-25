@@ -1,21 +1,16 @@
-package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos;
-
-import java.util.List;
+package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.input.DTOPeticion;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
-public class EspacioFisico {
-    
+public class EspacioDTOPeticion {
     private Integer idEspacioFisico;
     private String nombre;
     private Integer capacidad;
     //private List<FranjaHoraria> franjasHorarias;
-
-    public EspacioFisico(){
-
-    }
 
 }
