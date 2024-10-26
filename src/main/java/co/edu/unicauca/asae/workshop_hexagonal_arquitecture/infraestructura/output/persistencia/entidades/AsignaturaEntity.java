@@ -2,6 +2,7 @@ package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.out
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -17,16 +18,25 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Espacio_Fisico")
-public class EspacioFisicoEntity {
+@NoArgsConstructor
+@Table(name = "Asignatura")
+public class AsignaturaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idEspacioFisico;
-    private String nombre;
-    private Integer capacidad;
+    private Integer idAsignatura;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "objEspacioFisico")
-    private List<FranjaHorariaEntity> franjasHorarias;
+    @Column(name = "nombre", nullable = false, length = 255)
+    private String nombre;
+
+    @Column(name = "codigo", nullable = false, length = 50, unique = true)
+    private String codigo;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "objAsignatura")
+    private List<CursoEntity> cursos;
+
+    public AsignaturaEntity(String nombre,String codigo){
+        this.nombre=nombre;
+        this.codigo=codigo;
+    }
 }
