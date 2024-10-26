@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.EspacioFisicoEntity;
 
 public interface EspacioRepositoryInt extends CrudRepository<EspacioFisicoEntity, Integer> {
-    @Query("SELECT count(*) FROM ProductoEntity p WHERE p.nombre = ?1")
+    @Query("SELECT count(*) FROM EspacioFisicoEntity p WHERE p.nombre = ?1")
     Integer existeEspacioPorNombre(String nombre);
 }
