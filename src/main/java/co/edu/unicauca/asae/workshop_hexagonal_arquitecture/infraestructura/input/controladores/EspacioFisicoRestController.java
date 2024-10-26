@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.input.GestionEspacioCUIntPort;
@@ -38,9 +39,11 @@ public class EspacioFisicoRestController {
     }
 
     @GetMapping("/espacios")
-    public ResponseEntity<List<EspacioDTORespuesta>> listar() {
+    public ResponseEntity<List<EspacioDTORespuesta>> listar(
+        @RequestParam(value = "patron", required = false, defaultValue = "") String patron,
+        @RequestParam(value = "capacidad", required = false, defaultValue = "0") int capacidad) {
         ResponseEntity<List<EspacioDTORespuesta>> objRespuesta = new ResponseEntity<List<EspacioDTORespuesta>>(
-                objMapeador.mappearDeEspaciosARespuesta(this.objGestionEspaciosCUInt.listar()),
+                objMapeador.mappearDeEspaciosARespuesta(this.objGestionEspaciosCUInt.listar(patron,capacidad)),
                 HttpStatus.OK);
         return objRespuesta;
     }

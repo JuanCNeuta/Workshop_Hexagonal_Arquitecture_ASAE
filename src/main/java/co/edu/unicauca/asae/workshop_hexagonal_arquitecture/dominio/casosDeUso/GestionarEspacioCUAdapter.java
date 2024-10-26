@@ -1,6 +1,5 @@
 package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.casosDeUso;
 
-import java.sql.Date;
 import java.util.List;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.input.GestionEspacioCUIntPort;
@@ -33,9 +32,8 @@ public class GestionarEspacioCUAdapter implements GestionEspacioCUIntPort {
     }
 
     @Override
-    public List<EspacioFisico> listar() {
-        List<EspacioFisico> listaObtenida = objGestionarEspacioGateway.listar();
-        return listaObtenida;
+    public List<EspacioFisico> listar(String patron, int capacidad) {
+        return objGestionarEspacioGateway.listar(patron, capacidad);
     }
 
 }

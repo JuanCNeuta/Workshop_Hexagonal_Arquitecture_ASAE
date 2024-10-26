@@ -10,5 +10,5 @@ public interface GestionarEspacioGatewayIntPort {
 
     public EspacioFisico guardar(EspacioFisico objEspacio);
 
-    public List<EspacioFisico> listar();
+    public List<EspacioFisico> listar(String patron, int capacidad);
 }

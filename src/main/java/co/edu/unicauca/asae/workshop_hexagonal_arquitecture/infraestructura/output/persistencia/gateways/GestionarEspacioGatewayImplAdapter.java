@@ -1,6 +1,7 @@
 package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.gateways;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -27,18 +28,19 @@ public class GestionarEspacioGatewayImplAdapter implements GestionarEspacioGatew
     }
 
     @Override
+    public List<EspacioFisico> listar(String patron, int capacidad) {
+        // Obtiene la lista de EspacioFisicoEntity que cumple con los criterios
+        Iterable<EspacioFisicoEntity> lista = objEspacioRepository.listar(patron, capacidad);
+        List<EspacioFisico> listaObtenida = this.espacioModelMapper.map(lista, new TypeToken<List<EspacioFisico>>() {
+        }.getType());
+        return listaObtenida;
+    }
+
+    @Override
     public EspacioFisico guardar(EspacioFisico objEspacio) {
         EspacioFisicoEntity objEspacioEntity = this.espacioModelMapper.map(objEspacio, EspacioFisicoEntity.class);
         EspacioFisicoEntity objEspacioEntityRegistrado = this.objEspacioRepository.save(objEspacioEntity);
         EspacioFisico objEspacioRespuesta = this.espacioModelMapper.map(objEspacioEntityRegistrado, EspacioFisico.class);
         return objEspacioRespuesta;
-    }
-
-    @Override
-    public List<EspacioFisico> listar() {
-        Iterable<EspacioFisicoEntity> lista = this.objEspacioRepository.findAll();
-        List<EspacioFisico> listaObtenida = this.espacioModelMapper.map(lista, new TypeToken<List<EspacioFisico>>() {
-        }.getType());
-        return listaObtenida;
     }
 }
