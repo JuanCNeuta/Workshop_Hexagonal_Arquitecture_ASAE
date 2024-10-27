@@ -39,7 +39,7 @@ public class EspacioFisicoRestController {
     }
 
     @GetMapping("/espacios")
-    public ResponseEntity<List<EspacioDTORespuesta>> listar(
+    public ResponseEntity<List<EspacioDTORespuesta>> listar(@Valid
         @RequestParam(value = "patron", required = false, defaultValue = "") String patron,
         @RequestParam(value = "capacidad", required = false, defaultValue = "0") int capacidad) {
         ResponseEntity<List<EspacioDTORespuesta>> objRespuesta = new ResponseEntity<List<EspacioDTORespuesta>>(

@@ -1,5 +1,7 @@
 package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.input.DTORespuesta;
 
+import java.sql.Time;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EspacioDTORespuesta {
+public class FranjaDTORespuesta {
 
-    private Integer idEspacioFisico;
-    private String nombre;
-    private Integer capacidad;
-    
+    private Integer idFranja;
+    private String dia;
+    private Time horaInicio;
+    private Time horaFin;
 }

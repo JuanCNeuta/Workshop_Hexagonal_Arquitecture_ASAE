@@ -5,7 +5,9 @@ import org.springframework.context.annotation.Configuration;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarEspacioGatewayIntPort;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarFranjaGatewayIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.casosDeUso.GestionarEspacioCUAdapter;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.casosDeUso.GestionarFranjaCUAdapter;
 
 @Configuration
 public class BeanConfigurations {
@@ -17,5 +19,14 @@ public class BeanConfigurations {
         GestionarEspacioCUAdapter objGestionarEspacioCU = new GestionarEspacioCUAdapter(objGestionarEspacioGateway,
                 onjFormateadorResultados);
         return objGestionarEspacioCU;
+    }
+
+    @Bean
+    public GestionarFranjaCUAdapter crearGestionarFranjaCUInt(
+            GestionarFranjaGatewayIntPort objGestionarFranjaGateway,
+            FormateadorResultadosIntPort onjFormateadorResultados) {
+        GestionarFranjaCUAdapter objGestionarFranjaCU = new GestionarFranjaCUAdapter(objGestionarFranjaGateway,
+                onjFormateadorResultados);
+        return objGestionarFranjaCU;
     }
 }
