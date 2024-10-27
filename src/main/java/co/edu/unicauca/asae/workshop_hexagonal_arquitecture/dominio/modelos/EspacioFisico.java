@@ -1,6 +1,5 @@
 package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos;
 
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

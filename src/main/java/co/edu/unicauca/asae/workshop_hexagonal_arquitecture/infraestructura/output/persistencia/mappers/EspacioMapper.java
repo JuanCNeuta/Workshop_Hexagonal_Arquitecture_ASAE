@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class EspacioMapper {
-    @Bean
+    @Bean (name = "espacioModelMapper")
     public ModelMapper crearEspacioMapper(){
         return new ModelMapper();
     }

@@ -2,6 +2,8 @@ package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.out
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,8 +22,9 @@ import lombok.Setter;
 @Table(name="Docente")
 @PrimaryKeyJoinColumn(name = "persona_id") // une con la tabla Persona
 public class DocenteEntity extends PersonaEntity{
-    @OneToOne(cascade =CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "oficina_id", referencedColumnName = "idOficina")
+    @JsonIgnore
     private OficinaEntity objOficina;
 
     @ManyToMany(fetch =FetchType.EAGER)

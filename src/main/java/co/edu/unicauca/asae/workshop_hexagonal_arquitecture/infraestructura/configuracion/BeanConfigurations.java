@@ -4,8 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.FormateadorResultadosIntPort;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarDocenteGatewayIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarEspacioGatewayIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarFranjaGatewayIntPort;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.casosDeUso.GestionarDocenteCUAdapter;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.casosDeUso.GestionarEspacioCUAdapter;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.casosDeUso.GestionarFranjaCUAdapter;
 
@@ -28,5 +30,14 @@ public class BeanConfigurations {
         GestionarFranjaCUAdapter objGestionarFranjaCU = new GestionarFranjaCUAdapter(objGestionarFranjaGateway,
                 onjFormateadorResultados);
         return objGestionarFranjaCU;
+    }
+
+    @Bean
+    public GestionarDocenteCUAdapter crearGestionarDocenteCUInt(
+        GestionarDocenteGatewayIntPort objGestionarDocenteGateway,
+            FormateadorResultadosIntPort objDocenteformateadorResultados){
+                GestionarDocenteCUAdapter objGestionarDocenteCU= new GestionarDocenteCUAdapter(objGestionarDocenteGateway, 
+                objDocenteformateadorResultados);
+                return objGestionarDocenteCU;         
     }
 }
