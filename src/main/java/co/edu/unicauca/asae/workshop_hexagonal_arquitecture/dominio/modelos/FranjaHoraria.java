@@ -13,4 +13,6 @@ public class FranjaHoraria {
     private String dia;
     private Time horaInicio;
     private Time horaFin;
+
+    public FranjaHoraria(){}
 }
