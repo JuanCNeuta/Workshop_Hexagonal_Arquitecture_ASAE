@@ -9,7 +9,6 @@ import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.Doce
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.DocenteEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.OficinaEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.respositorios.DocenteRepositoryInt;
-import jakarta.transaction.Transactional;
 
 @Service
 public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatewayIntPort {

@@ -1,6 +1,5 @@
 package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.casosDeUso;
 
-import java.sql.Time;
 import java.util.List;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.input.GestionarFranjaCUIntPort;
@@ -21,14 +20,14 @@ public class GestionarFranjaCUAdapter implements GestionarFranjaCUIntPort {
     }
 
     @Override
-    public FranjaHoraria crear(FranjaHoraria objFranja, String dia, Time horaInicio, Time horaFin, Integer espacioId) {
+    public FranjaHoraria crear(FranjaHoraria objFranja,Integer cursoId, Integer espacioFisicoId) {
         FranjaHoraria objFranjaCreado = null;
-        if (!this.objGestionarFranjaGateway.verificarOcupacion(dia, horaInicio, horaFin, espacioId)) {
+        if (!this.objGestionarFranjaGateway.verificarOcupacion(objFranja.getDia(), objFranja.getHoraInicio(), objFranja.getHoraFin(), espacioFisicoId)) {
             this.objFormateadorResultados
                     .retornarRespuestaErrorEntidadExiste("Error, El espacio físico\r\n" + //
-                                                "está ocupado en el día, hora de inicio y hora fin.");
+                                                "está ocupado en el di\\u00E1, hora de inicio y hora fin.");
         } else {
-            objFranjaCreado = this.objGestionarFranjaGateway.guardar(objFranja);
+            objFranjaCreado = this.objGestionarFranjaGateway.guardar(objFranja,cursoId,espacioFisicoId);
         }
         return objFranjaCreado;
     }
