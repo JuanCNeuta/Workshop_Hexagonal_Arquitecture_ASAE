@@ -10,7 +10,7 @@ import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.inpu
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.input.mappers.DocenteMapperInfraestructuraDominio;
 import lombok.RequiredArgsConstructor;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ public class DocenteRestController {
     private final DocenteMapperInfraestructuraDominio objMapeador;
 
     @PostMapping("/docentes")
-    public ResponseEntity<DocenteDTORespuesta> create(@Valid @RequestBody DocenteDTOPeticion objDocente) {
+    public ResponseEntity<DocenteDTORespuesta> create(@RequestBody @Valid DocenteDTOPeticion objDocente) {
         Docente objDocenteCrear = objMapeador.mappearDePeticionADocente(objDocente);
         Docente objDocenteCreado = objGestionarDocentesCUInt.crearDocente(objDocenteCrear);     
         ResponseEntity<DocenteDTORespuesta> objRespuesta = new ResponseEntity<DocenteDTORespuesta>(

@@ -1,12 +1,8 @@
 package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.input.DTOPeticion;
 
-
-
-
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.Oficina;
 import lombok.AllArgsConstructor;

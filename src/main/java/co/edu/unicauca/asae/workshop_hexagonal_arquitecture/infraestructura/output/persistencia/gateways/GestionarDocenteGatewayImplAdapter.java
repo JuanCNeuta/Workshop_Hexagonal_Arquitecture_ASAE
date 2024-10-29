@@ -30,7 +30,7 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public Docente guardarDocente(Docente objDocente) {
         DocenteEntity objDocenteEntity = this.docenteModelMapper.map(objDocente, DocenteEntity.class);
         // Relación bidireccional configuracion

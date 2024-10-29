@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FranjaMapper {
-    @Bean
+    @Bean (name = "franjaModelMapper")
     public ModelMapper crearFranjaMapper(){
         return new ModelMapper();
     }

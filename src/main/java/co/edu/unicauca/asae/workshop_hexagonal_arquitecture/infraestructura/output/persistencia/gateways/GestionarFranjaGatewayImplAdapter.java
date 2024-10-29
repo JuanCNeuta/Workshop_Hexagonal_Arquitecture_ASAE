@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarEspacioGatewayIntPort;
@@ -21,30 +22,32 @@ public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGateway
     private final FranjaRepositoryInt objFranjaRepository;
     private final ModelMapper franjaModelMapper;
     
-    public GestionarFranjaGatewayImplAdapter(FranjaRepositoryInt objFranjaRepository, ModelMapper franjaModelMapper){
+    public GestionarFranjaGatewayImplAdapter(FranjaRepositoryInt objFranjaRepository,  @Qualifier("franjaModelMapper") ModelMapper franjaModelMapper){
         this.objFranjaRepository = objFranjaRepository;
         this.franjaModelMapper = franjaModelMapper;
     }
 
-    @Override
+   /* */ @Override
     public boolean verificarOcupacion(String dia, Time horaInicio, Time horaFin, Integer espacioId) {
-        return this.objFranjaRepository.verificarOcupacion(dia, horaInicio,horaFin, espacioId);
+        //return this.objFranjaRepository.verificarOcupacion(dia, horaInicio,horaFin, espacioId);
+        return false;
     }
 
     @Override
     public List<FranjaHoraria> listar() {
         // Obtiene la lista de EspacioFisicoEntity que cumple con los criterios
-        Iterable<FranjaHorariaEntity> lista = objFranjaRepository.findAll();
-        List<FranjaHoraria> listaObtenida = this.franjaModelMapper.map(lista, new TypeToken<List<FranjaHoraria>>() {
-        }.getType());
-        return listaObtenida;
+        //Iterable<FranjaHorariaEntity> lista = objFranjaRepository.findAll();
+        //List<FranjaHoraria> listaObtenida = this.franjaModelMapper.map(lista, new TypeToken<List<FranjaHoraria>>() {
+        //}.getType());
+        //return listaObtenida;
+        return null;
     }
 
     @Override
     public FranjaHoraria guardar(FranjaHoraria objFranja) {
-        FranjaHorariaEntity objFranjaEntity = this.franjaModelMapper.map(objFranja, FranjaHorariaEntity.class);
-        FranjaHorariaEntity objFranjaEntityRegistrado = this.objFranjaRepository.save(objFranjaEntity);
-        FranjaHoraria objFranjaRespuesta = this.franjaModelMapper.map(objFranjaEntityRegistrado, FranjaHoraria.class);
-        return objFranjaRespuesta;
+        // objFranjaEntity = this.franjaModelMapper.map(objFranja, FranjaHorariaEntity.class);
+        //FranjaHorariaEntity objFranjaEntityRegistrado = this.objFranjaRepository.save(objFranjaEntity);
+        //FranjaHoraria objFranjaRespuesta = this.franjaModelMapper.map(objFranjaEntityRegistrado, FranjaHoraria.class);
+        return null;
     }
 }

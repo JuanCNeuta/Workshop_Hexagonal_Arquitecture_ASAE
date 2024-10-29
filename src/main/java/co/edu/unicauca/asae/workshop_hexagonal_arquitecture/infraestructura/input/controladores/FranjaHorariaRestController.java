@@ -3,7 +3,7 @@ package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.inp
 import java.sql.Time;
 import java.util.List;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,8 +50,8 @@ public class FranjaHorariaRestController {
         curso.setIdCurso(cursoId);
 
         // Asignar espacio físico y curso a la franja horaria
-        objFranjaCrear.setObjEspacioFisico(espacioFisico);
-        objFranjaCrear.setObjCurso(curso);
+        //objFranjaCrear.setObjEspacioFisico(espacioFisico);
+        //objFranjaCrear.setObjCurso(curso);
 
 
         FranjaHoraria objFranjaCreado = objGestionFranjasCUInt.crear(objFranjaCrear, null, null, null, null);
