@@ -29,17 +29,12 @@ public class GestionarDocenteGatewayImplAdapter implements GestionarDocenteGatew
     }
 
     @Override
-    //@Transactional
     public Docente guardarDocente(Docente objDocente) {
         DocenteEntity objDocenteEntity = this.docenteModelMapper.map(objDocente, DocenteEntity.class);
         // Relación bidireccional configuracion
-        OficinaEntity oficina = objDocenteEntity.getObjOficina();
-        if (oficina != null) {
-            oficina.setObjDocente(objDocenteEntity); // Sincroniza la relación bidireccional
-            System.out.println(oficina.getNombre());
-            System.out.println(oficina.getUbicacion());
-            System.out.println();
-            
+        OficinaEntity oficinaEntity = objDocenteEntity.getObjOficina();
+        if (oficinaEntity != null) {
+            oficinaEntity.setObjDocente(objDocenteEntity); // Sincroniza la relación bidireccional
         }
         DocenteEntity objDocenteEntityRegistrado = this.objDocenteRepository.save(objDocenteEntity);
         Docente objDocenteRespuesta = this.docenteModelMapper.map(objDocenteEntityRegistrado, Docente.class);

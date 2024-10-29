@@ -11,4 +11,6 @@ public interface GestionarFranjaGatewayIntPort {
     public FranjaHoraria guardar(FranjaHoraria objEspacio,Integer cursoId,Integer espacioFisicoId);
 
     public List<FranjaHoraria> listar();
+
+    public boolean verificarOcupacionDocente(String dia, Time horaInicio, Time horaFin, Integer docenteId);
 }

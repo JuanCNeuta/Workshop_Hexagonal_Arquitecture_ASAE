@@ -8,15 +8,11 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarEspacioGatewayIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarFranjaGatewayIntPort;
-import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.Curso;
-import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.FranjaHoraria;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.CursoEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.EspacioFisicoEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.FranjaHorariaEntity;
-import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.respositorios.EspacioRepositoryInt;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.respositorios.FranjaRepositoryInt;
 
 @Service
@@ -29,20 +25,23 @@ public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGateway
         this.franjaModelMapper = franjaModelMapper;
     }
 
-   /* */ @Override
+    @Override
+    public boolean verificarOcupacionDocente(String dia, Time horaInicio, Time horaFin, Integer docenteId) {
+        return this.objFranjaRepository.verificarOcupacionDocente(dia, horaInicio,horaFin, docenteId);
+    }
+
+    @Override
     public boolean verificarOcupacion(String dia, Time horaInicio, Time horaFin, Integer espacioId) {
-        //return this.objFranjaRepository.verificarOcupacion(dia, horaInicio,horaFin, espacioId);
-        return false;
+        return this.objFranjaRepository.verificarOcupacion(dia, horaInicio,horaFin, espacioId);
     }
 
     @Override
     public List<FranjaHoraria> listar() {
         // Obtiene la lista de EspacioFisicoEntity que cumple con los criterios
-        //Iterable<FranjaHorariaEntity> lista = objFranjaRepository.findAll();
-        //List<FranjaHoraria> listaObtenida = this.franjaModelMapper.map(lista, new TypeToken<List<FranjaHoraria>>() {
-        //}.getType());
-        //return listaObtenida;
-        return null;
+        Iterable<FranjaHorariaEntity> lista = objFranjaRepository.findAll();
+        List<FranjaHoraria> listaObtenida = this.franjaModelMapper.map(lista, new TypeToken<List<FranjaHoraria>>() {
+        }.getType());
+        return listaObtenida;
     }
 
     @Override
@@ -64,4 +63,6 @@ public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGateway
         FranjaHoraria objFranjaRespuesta = this.franjaModelMapper.map(objFranjaEntityRegistrado, FranjaHoraria.class);
         return objFranjaRespuesta;
     }
+
+   
 }

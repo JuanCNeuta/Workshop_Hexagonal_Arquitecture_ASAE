@@ -22,10 +22,15 @@ public class GestionarFranjaCUAdapter implements GestionarFranjaCUIntPort {
     @Override
     public FranjaHoraria crear(FranjaHoraria objFranja,Integer cursoId, Integer espacioFisicoId) {
         FranjaHoraria objFranjaCreado = null;
+        
         if (!this.objGestionarFranjaGateway.verificarOcupacion(objFranja.getDia(), objFranja.getHoraInicio(), objFranja.getHoraFin(), espacioFisicoId)) {
             this.objFormateadorResultados
                     .retornarRespuestaErrorEntidadExiste("Error, El espacio físico\r\n" + //
                                                 "está ocupado en el di\\u00E1, hora de inicio y hora fin.");
+        } else if (!this.objGestionarFranjaGateway.verificarOcupacionDocente(objFranja.getDia(), objFranja.getHoraInicio(), objFranja.getHoraFin(), espacioFisicoId)) {
+            this.objFormateadorResultados
+                    .retornarRespuestaErrorEntidadExiste("Error, El docente\r\n" + //
+                                                "se encuentra ocupado en el di\\u00E1, hora de inicio y hora fin.");
         } else {
             objFranjaCreado = this.objGestionarFranjaGateway.guardar(objFranja,cursoId,espacioFisicoId);
         }
