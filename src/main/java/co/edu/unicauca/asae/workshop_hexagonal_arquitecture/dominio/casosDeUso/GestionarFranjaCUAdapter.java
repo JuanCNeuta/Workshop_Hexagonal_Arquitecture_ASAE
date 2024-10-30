@@ -27,7 +27,6 @@ public class GestionarFranjaCUAdapter implements GestionarFranjaCUIntPort {
         boolean estaOcupado = this.objGestionarFranjaGateway.verificarOcupacion(
                 objFranja.getDia(), objFranja.getHoraInicio(), objFranja.getHoraFin(), espacioFisicoId);
 
-
         if (estaOcupado) {
             this.objFormateadorResultados
                     .retornarRespuestaErrorEntidadExiste(
