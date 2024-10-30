@@ -14,5 +14,5 @@ public interface FranjaMapperInfraestructuraDominio {
 
     FranjaDTORespuesta mappearDeFranjaARespuesta(FranjaHoraria objFranjaHoraria);
 
-    List<FranjaDTORespuesta> mappearDeFranjasARespuesta(List<FranjaHoraria> franjaHoraria);
+    List<FranjaDTORespuesta> mappearDeFranjasARespuesta(List<FranjaDTORespuesta> franjaHoraria);
 }

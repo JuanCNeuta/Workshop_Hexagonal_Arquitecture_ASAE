@@ -15,4 +15,8 @@ public class FranjaDTORespuesta {
     private String dia;
     private Time horaInicio;
     private Time horaFin;
+    private String cursoNombre;
+    private String espacioFisicoNombre;
+
+    public FranjaDTORespuesta(){}
 }

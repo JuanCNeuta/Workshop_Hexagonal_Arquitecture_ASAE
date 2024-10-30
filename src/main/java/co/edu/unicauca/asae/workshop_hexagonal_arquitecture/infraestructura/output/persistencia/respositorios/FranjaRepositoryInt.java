@@ -43,4 +43,10 @@ public interface FranjaRepositoryInt extends CrudRepository<FranjaHorariaEntity,
                         " on cd.curso_id=c.idCurso where cd.curso_id=:curso_id", nativeQuery = true)
         List<Integer> buscarDocentesQueDictanCurso(@Param("curso_id") Integer curso_id);
 
+        @Query("SELECT f FROM FranjaHorariaEntity f " +
+                        "JOIN f.objCurso c " +
+                        "JOIN c.docentes d " +
+                        "WHERE d.id = :docenteId")
+        Iterable<FranjaHorariaEntity> listarPorDocente(@Param("docenteId") Integer docenteId);
+
 }

@@ -1,6 +1,7 @@
 package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.gateways;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -10,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarFranjaGatewayIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.FranjaHoraria;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.input.DTORespuesta.FranjaDTORespuesta;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.CursoEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.EspacioFisicoEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.FranjaHorariaEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.respositorios.FranjaRepositoryInt;
+import jakarta.transaction.Transactional;
 
 @Service
 public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGatewayIntPort{
@@ -41,12 +44,26 @@ public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGateway
     }
 
     @Override
-    public List<FranjaHoraria> listar() {
-        // Obtiene la lista de EspacioFisicoEntity que cumple con los criterios
-        Iterable<FranjaHorariaEntity> lista = objFranjaRepository.findAll();
-        List<FranjaHoraria> listaObtenida = this.franjaModelMapper.map(lista, new TypeToken<List<FranjaHoraria>>() {
-        }.getType());
-        return listaObtenida;
+    @Transactional
+    public List<FranjaDTORespuesta> listarPorDocente(Integer docenteId) {
+        Iterable<FranjaHorariaEntity> lista = objFranjaRepository.listarPorDocente(docenteId);
+        List<FranjaDTORespuesta> listaObtenida = new ArrayList<>();
+
+    for(FranjaHorariaEntity franjaEntity : lista){
+        FranjaDTORespuesta franjaDominio = franjaModelMapper.map(franjaEntity, FranjaDTORespuesta.class);
+        
+        // Aquí aseguramos que los nombres del curso y del espacio físico sean trasladados correctamente
+        if (franjaEntity.getObjCurso() != null) {
+            franjaDominio.setCursoNombre(franjaEntity.getObjCurso().getNombre());
+        }
+        if (franjaEntity.getObjEspacioFisico() != null) {
+            franjaDominio.setEspacioFisicoNombre(franjaEntity.getObjEspacioFisico().getNombre());
+        }
+
+        listaObtenida.add(franjaDominio);
+    }
+
+    return listaObtenida;
     }
 
     @Override

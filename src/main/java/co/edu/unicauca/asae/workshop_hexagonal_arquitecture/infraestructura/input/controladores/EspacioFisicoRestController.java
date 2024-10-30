@@ -27,9 +27,10 @@ public class EspacioFisicoRestController {
 
     private final GestionEspacioCUIntPort objGestionEspaciosCUInt;
     private final EspacioMapperInfraestructuraDominio objMapeador;
-    
+
     @PostMapping("/espacios")
     public ResponseEntity<EspacioDTORespuesta> create(@RequestBody @Valid EspacioDTOPeticion objEspacio) {
+        System.out.println("Creando un Espacio Fisico");
         EspacioFisico objEspacioCrear = objMapeador.mappearDePeticionAEspacio(objEspacio);
         EspacioFisico objEspacioCreado = objGestionEspaciosCUInt.crear(objEspacioCrear);
         ResponseEntity<EspacioDTORespuesta> objRespuesta = new ResponseEntity<EspacioDTORespuesta>(
@@ -39,11 +40,13 @@ public class EspacioFisicoRestController {
     }
 
     @GetMapping("/espacios")
-    public ResponseEntity<List<EspacioDTORespuesta>> listar(@Valid
-        @RequestParam(value = "patron", required = false, defaultValue = "") String patron,
-        @RequestParam(value = "capacidad", required = false, defaultValue = "0") int capacidad) {
+    public ResponseEntity<List<EspacioDTORespuesta>> listar(
+            @Valid @RequestParam(value = "patron", required = false, defaultValue = "") String patron,
+            @RequestParam(value = "capacidad", required = false, defaultValue = "0") int capacidad) {
+        System.out
+                .println("Listando Las Franjas Horarias segun el patron: " + patron + " y la Capacidad: " + capacidad);
         ResponseEntity<List<EspacioDTORespuesta>> objRespuesta = new ResponseEntity<List<EspacioDTORespuesta>>(
-                objMapeador.mappearDeEspaciosARespuesta(this.objGestionEspaciosCUInt.listar(patron,capacidad)),
+                objMapeador.mappearDeEspaciosARespuesta(this.objGestionEspaciosCUInt.listar(patron, capacidad)),
                 HttpStatus.OK);
         return objRespuesta;
     }

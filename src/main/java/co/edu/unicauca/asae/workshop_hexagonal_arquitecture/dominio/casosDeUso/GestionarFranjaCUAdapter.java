@@ -8,6 +8,7 @@ import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.input.Ges
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarFranjaGatewayIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.FranjaHoraria;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.input.DTORespuesta.FranjaDTORespuesta;
 
 public class GestionarFranjaCUAdapter implements GestionarFranjaCUIntPort {
 
@@ -56,7 +57,7 @@ public class GestionarFranjaCUAdapter implements GestionarFranjaCUIntPort {
     }
 
     @Override
-    public List<FranjaHoraria> listar() {
-        return objGestionarFranjaGateway.listar();
+    public List<FranjaDTORespuesta> listarPorDocente(Integer docenteId) {
+        return objGestionarFranjaGateway.listarPorDocente(docenteId);
     }
 }

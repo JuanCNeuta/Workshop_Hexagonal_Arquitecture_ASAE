@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -28,12 +27,13 @@ public class DocenteRestController {
 
     @PostMapping("/docentes")
     public ResponseEntity<DocenteDTORespuesta> create(@RequestBody @Valid DocenteDTOPeticion objDocente) {
+        System.out.println("Creando un Docente");
         Docente objDocenteCrear = objMapeador.mappearDePeticionADocente(objDocente);
-        Docente objDocenteCreado = objGestionarDocentesCUInt.crearDocente(objDocenteCrear);     
+        Docente objDocenteCreado = objGestionarDocentesCUInt.crearDocente(objDocenteCrear);
         ResponseEntity<DocenteDTORespuesta> objRespuesta = new ResponseEntity<DocenteDTORespuesta>(
                 objMapeador.mappearDeDocenteARespuesta(objDocenteCreado),
                 HttpStatus.CREATED);
         return objRespuesta;
     }
-    
+
 }
