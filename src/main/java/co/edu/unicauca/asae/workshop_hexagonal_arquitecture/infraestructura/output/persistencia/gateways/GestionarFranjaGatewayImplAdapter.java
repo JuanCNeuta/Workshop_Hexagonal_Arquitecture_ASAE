@@ -26,13 +26,18 @@ public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGateway
     }
 
     @Override
-    public boolean verificarOcupacionDocente(String dia, Time horaInicio, Time horaFin, Integer docenteId) {
+    public Integer verificarOcupacionDocente(String dia, Time horaInicio, Time horaFin, Integer docenteId) {
         return this.objFranjaRepository.verificarOcupacionDocente(dia, horaInicio,horaFin, docenteId);
     }
 
     @Override
     public boolean verificarOcupacion(String dia, Time horaInicio, Time horaFin, Integer espacioId) {
         return this.objFranjaRepository.verificarOcupacion(dia, horaInicio,horaFin, espacioId);
+    }
+
+    @Override
+    public List<Integer> buscarDocentesQueDictanCurso(Integer cursoId) {
+        return this.objFranjaRepository.buscarDocentesQueDictanCurso(cursoId);
     }
 
     @Override
@@ -64,5 +69,4 @@ public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGateway
         return objFranjaRespuesta;
     }
 
-   
 }

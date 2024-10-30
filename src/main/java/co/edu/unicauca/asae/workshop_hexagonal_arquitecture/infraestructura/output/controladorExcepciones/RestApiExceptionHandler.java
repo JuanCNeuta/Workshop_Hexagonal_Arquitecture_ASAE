@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.estructuraExcepciones.Error;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.estructuraExcepciones.CodigoError;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.estructuraExcepciones.ErrorUtils;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.DocenteOcupadoException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadNoExisteException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadYaExisteException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.ReglaNegocioExcepcion;
@@ -47,6 +48,19 @@ public class RestApiExceptionHandler {
                 .setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());
         return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
     }
+
+    @ExceptionHandler(DocenteOcupadoException.class)
+    public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
+            final DocenteOcupadoException ex) {
+        final Error error = ErrorUtils
+                .crearError(CodigoError.DOCENTE_OCUPADO.getCodigo(),
+                        String.format("%s, %s", CodigoError.DOCENTE_OCUPADO.getLlaveMensaje(),
+                                ex.getMessage()),
+                        HttpStatus.NOT_ACCEPTABLE.value())
+                .setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());
+        return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
+    }
+
 
     @ExceptionHandler(ReglaNegocioExcepcion.class)
     public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
