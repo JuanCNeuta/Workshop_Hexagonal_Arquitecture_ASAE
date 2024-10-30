@@ -12,7 +12,7 @@ import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.inpu
 public interface FranjaMapperInfraestructuraDominio {
     FranjaHoraria mappearDePeticionAFranja(FranjaDTOPeticion peticion);
 
-    FranjaDTORespuesta mappearDeFranjaARespuesta(FranjaHoraria objFranjaHoraria);
+    FranjaDTORespuesta mappearDeFranjaARespuesta(FranjaDTORespuesta objFranjaHoraria);
 
     List<FranjaDTORespuesta> mappearDeFranjasARespuesta(List<FranjaDTORespuesta> franjaHoraria);
 }

@@ -22,8 +22,8 @@ public class GestionarFranjaCUAdapter implements GestionarFranjaCUIntPort {
     }
 
     @Override
-    public FranjaHoraria crear(FranjaHoraria objFranja, Integer cursoId, Integer espacioFisicoId) {
-        FranjaHoraria objFranjaCreado = null;
+    public FranjaDTORespuesta crear(FranjaHoraria objFranja, Integer cursoId, Integer espacioFisicoId) {
+        FranjaDTORespuesta objFranjaCreado = null;
 
         boolean estaOcupado = this.objGestionarFranjaGateway.verificarOcupacion(
                 objFranja.getDia(), objFranja.getHoraInicio(), objFranja.getHoraFin(), espacioFisicoId);

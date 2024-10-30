@@ -37,9 +37,8 @@ public class FranjaHorariaRestController {
             @PathVariable Integer espacioFisicoId) {
         System.out.println("Creando Franja Horaria");
         FranjaHoraria objFranjaCrear = objMapeador.mappearDePeticionAFranja(objFranja);
-        FranjaHoraria objFranjaCreado = objGestionFranjasCUInt.crear(objFranjaCrear, cursoId, espacioFisicoId);
         ResponseEntity<FranjaDTORespuesta> objRespuesta = new ResponseEntity<FranjaDTORespuesta>(
-                objMapeador.mappearDeFranjaARespuesta(objFranjaCreado),
+                objMapeador.mappearDeFranjaARespuesta(this.objGestionFranjasCUInt.crear(objFranjaCrear, cursoId, espacioFisicoId)),
                 HttpStatus.CREATED);
         return objRespuesta;
     }

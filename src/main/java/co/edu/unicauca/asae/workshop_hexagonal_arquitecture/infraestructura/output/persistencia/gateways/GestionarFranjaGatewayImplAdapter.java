@@ -3,27 +3,36 @@ package co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.out
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.GestionarFranjaGatewayIntPort;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.Curso;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.EspacioFisico;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.dominio.modelos.FranjaHoraria;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.input.DTORespuesta.FranjaDTORespuesta;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.CursoEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.EspacioFisicoEntity;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.entidades.FranjaHorariaEntity;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.respositorios.CursoRepositoryInt;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.respositorios.EspacioRepositoryInt;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.persistencia.respositorios.FranjaRepositoryInt;
 import jakarta.transaction.Transactional;
 
 @Service
 public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGatewayIntPort{
     private final FranjaRepositoryInt objFranjaRepository;
+    private final CursoRepositoryInt objCursoRepository;
+    private final EspacioRepositoryInt objEspacioRepository;
     private final ModelMapper franjaModelMapper;
     
-    public GestionarFranjaGatewayImplAdapter(FranjaRepositoryInt objFranjaRepository, @Qualifier("franjaModelMapper")ModelMapper franjaModelMapper){
+    public GestionarFranjaGatewayImplAdapter(FranjaRepositoryInt objFranjaRepository,CursoRepositoryInt objCursoRepository, EspacioRepositoryInt objEspacioRepository, @Qualifier("franjaModelMapper")ModelMapper franjaModelMapper){
         this.objFranjaRepository = objFranjaRepository;
+        this.objCursoRepository = objCursoRepository;
+        this.objEspacioRepository = objEspacioRepository;
         this.franjaModelMapper = franjaModelMapper;
     }
 
@@ -66,22 +75,34 @@ public class GestionarFranjaGatewayImplAdapter implements GestionarFranjaGateway
     }
 
     @Override
-    public FranjaHoraria guardar(FranjaHoraria objFranja,Integer cursoId,Integer espacioFisicoId) {
-        FranjaHorariaEntity objFranjaEntity = this.franjaModelMapper.map(objFranja, FranjaHorariaEntity.class);
-
-        // Asociar el espacio físico y curso existentes utilizando los IDs proporcionados en la URL
-        EspacioFisicoEntity espacioFisico = new EspacioFisicoEntity();
-        espacioFisico.setIdEspacioFisico(espacioFisicoId);
+    public FranjaDTORespuesta guardar(FranjaHoraria objFranja,Integer cursoId,Integer espacioFisicoId) {
         
-        CursoEntity curso = new CursoEntity();
-        curso.setIdCurso(cursoId);
+        boolean ban=true;
+        // Buscar el curso
+        Optional<CursoEntity> cursoOpt = objCursoRepository.findById(cursoId);
+        if (cursoOpt.isEmpty()) {
+            System.out.println("CURSO NO ENCONTRADO");
+            ban=false;
+        }
+        CursoEntity curso = cursoOpt.get();
 
+        // Buscar el espacio físico
+        Optional<EspacioFisicoEntity> espacioFisicoOpt = objEspacioRepository.findById(espacioFisicoId);
+        if (espacioFisicoOpt.isEmpty()) {
+            System.out.println("ESPACIO FISICO NO ENCONTRADO");
+            ban=false;
+        }
+        EspacioFisicoEntity espacioFisico = espacioFisicoOpt.get();
+
+        FranjaHorariaEntity objFranjaEntity = this.franjaModelMapper.map(objFranja, FranjaHorariaEntity.class);
+        
         // Asignar espacio físico y curso a la franja horaria
         objFranjaEntity.setObjEspacioFisico(espacioFisico);
         objFranjaEntity.setObjCurso(curso);
 
         FranjaHorariaEntity objFranjaEntityRegistrado = this.objFranjaRepository.save(objFranjaEntity);
-        FranjaHoraria objFranjaRespuesta = this.franjaModelMapper.map(objFranjaEntityRegistrado, FranjaHoraria.class);
+        FranjaDTORespuesta objFranjaRespuesta = this.franjaModelMapper.map(objFranjaEntityRegistrado, FranjaDTORespuesta.class);
+        objFranjaRespuesta.setCursoNombre(objFranjaEntityRegistrado.getObjCurso().getNombre());
         return objFranjaRespuesta;
     }
 
