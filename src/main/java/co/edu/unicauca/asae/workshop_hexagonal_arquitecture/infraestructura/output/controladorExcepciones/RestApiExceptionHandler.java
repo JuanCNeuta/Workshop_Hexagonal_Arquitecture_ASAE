@@ -20,6 +20,7 @@ import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.outp
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.DocenteOcupadoException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadNoExisteException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadYaExisteException;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.EspacioOcupadoException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.ReglaNegocioExcepcion;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -55,6 +56,18 @@ public class RestApiExceptionHandler {
         final Error error = ErrorUtils
                 .crearError(CodigoError.DOCENTE_OCUPADO.getCodigo(),
                         String.format("%s, %s", CodigoError.DOCENTE_OCUPADO.getLlaveMensaje(),
+                                ex.getMessage()),
+                        HttpStatus.NOT_ACCEPTABLE.value())
+                .setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());
+        return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(EspacioOcupadoException.class)
+    public ResponseEntity<Error> handleGenericException(final HttpServletRequest req,
+            final EspacioOcupadoException ex) {
+        final Error error = ErrorUtils
+                .crearError(CodigoError.ESPACIO_OCUPADO.getCodigo(),
+                        String.format("%s, %s", CodigoError.ESPACIO_OCUPADO.getLlaveMensaje(),
                                 ex.getMessage()),
                         HttpStatus.NOT_ACCEPTABLE.value())
                 .setUrl(req.getRequestURL().toString()).setMetodo(req.getMethod());

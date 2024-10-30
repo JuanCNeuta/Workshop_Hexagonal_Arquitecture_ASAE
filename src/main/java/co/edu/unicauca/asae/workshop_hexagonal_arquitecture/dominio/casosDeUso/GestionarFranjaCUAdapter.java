@@ -30,7 +30,7 @@ public class GestionarFranjaCUAdapter implements GestionarFranjaCUIntPort {
 
         if (estaOcupado) {
             this.objFormateadorResultados
-                    .retornarRespuestaErrorEntidadExiste(
+                    .retornarRespuestaErrorEspacioOcupado(
                             "Error, El espacio físico está ocupado en el día, hora de inicio y hora fin.");
         } else {
             List<Integer> docentesCurso = this.objGestionarFranjaGateway.buscarDocentesQueDictanCurso(cursoId);

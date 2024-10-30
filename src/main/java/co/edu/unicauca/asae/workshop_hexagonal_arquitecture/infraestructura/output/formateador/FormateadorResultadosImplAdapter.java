@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.aplicacion.output.FormateadorResultadosIntPort;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.DocenteOcupadoException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.EntidadYaExisteException;
+import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.EspacioOcupadoException;
 import co.edu.unicauca.asae.workshop_hexagonal_arquitecture.infraestructura.output.controladorExcepciones.excepcionesPropias.ReglaNegocioExcepcion;
 
 @Service
@@ -16,6 +17,12 @@ public class FormateadorResultadosImplAdapter implements FormateadorResultadosIn
     @Override
     public void retornarRespuestaErrorEntidadExiste(String mensaje) {
         EntidadYaExisteException objException = new EntidadYaExisteException(mensaje);
+        throw objException;
+    }
+
+    @Override
+    public void retornarRespuestaErrorEspacioOcupado(String mensaje){
+        EspacioOcupadoException objException = new EspacioOcupadoException(mensaje);
         throw objException;
     }
 
